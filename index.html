@@ -3,11 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kirito - Telegram Solutions</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <title>Kɪʀɪᴛᴏᵈᵉᵛ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        :root {
+            --primary: #b74b4b;
+            --secondary: #8a2be2;
+            --dark: #0d0d0d;
+            --darker: #090909;
+            --light: #e6e6e6;
+            --gray: #b8b8b8;
+            --card-bg: rgba(30, 30, 46, 0.7);
+        }
         
         * {
             margin: 0;
@@ -16,93 +24,194 @@
             text-decoration: none;
             border: none;
             outline: none;
-            font-family: 'Press Start 2P', cursive;
+            font-family: 'Poppins', sans-serif;
         }
 
         html {
             font-size: 62.5%;
+            scroll-behavior: smooth;
         }
 
         body {
             width: 100%;
-            height: 100vh;
+            min-height: 100vh;
             overflow-x: hidden;
-            background: linear-gradient(135deg, #0d0d0d, #1a1a2e);
-            color: #e6e6e6;
-            background-attachment: fixed;
+            color: var(--light);
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Glowing orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.5;
+            z-index: -1;
+        }
+        
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, var(--primary), transparent);
+            top: 10%;
+            left: 10%;
+            animation: float 15s infinite ease-in-out;
+        }
+        
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--secondary), transparent);
+            bottom: 15%;
+            right: 10%;
+            animation: float 18s infinite ease-in-out reverse;
+        }
+        
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: radial-gradient(circle, #00c9ff, transparent);
+            top: 40%;
+            right: 30%;
+            animation: float 12s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(20px, 20px) rotate(5deg); }
+            50% { transform: translate(0, 40px) rotate(0deg); }
+            75% { transform: translate(-20px, 20px) rotate(-5deg); }
         }
 
         header {
-            margin-top: 20px;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 1rem 9%;
-            background-color: transparent;
+            padding: 1.5rem 9%;
+            background-color: rgba(13, 13, 13, 0.6);
             filter: drop-shadow(10px);
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 100;
-            backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(183, 75, 75, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         .logo {
-            font-size: 2.5rem;
-            color: #b74b4b;
+            font-size: 2.8rem;
+            color: var(--primary);
             font-weight: 800;
             cursor: pointer;
             transition: 0.5s ease;
-            text-shadow: 0 0 10px rgba(183, 75, 75, 0.7);
+            display: flex;
+            align-items: center;
         }
 
         .logo:hover {
-            transform: scale(1.1);
+            transform: scale(1.05);
+        }
+
+        .logo i {
+            margin-right: 0.8rem;
+            color: var(--secondary);
         }
 
         nav a {
-            font-size: 1.4rem;
+            font-size: 1.6rem;
             color: white;
             margin-left: 3rem;
             font-weight: 500;
             transition: 0.3s ease;
-            border-bottom: 3px solid transparent;
             padding: 0.5rem 1rem;
             border-radius: 5px;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after,
+        nav a.active::after {
+            width: 100%;
         }
 
         nav a:hover,
         nav a.active {
-            color: #b74b4b;
-            background: rgba(183, 75, 75, 0.1);
+            color: var(--primary);
         }
 
-        .bot-button {
-            display: inline-block;
+        .button-group {
+            display: flex;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .custom-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
             padding: 1.5rem 3rem;
-            background: linear-gradient(45deg, #b74b4b, #8a2be2);
             border-radius: 10px;
             font-size: 1.6rem;
             color: white;
             font-weight: 600;
-            margin: 2rem 0;
-            box-shadow: 0 5px 15px rgba(183, 75, 75, 0.4);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
             transition: all 0.3s ease;
             text-align: center;
-            border: 2px solid #8a2be2;
+            border: 2px solid transparent;
+            min-width: 200px;
         }
 
-        .bot-button:hover {
+        .contact-button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: 2px solid var(--secondary);
+        }
+
+        .contact-button:hover {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
             transform: translateY(-5px);
             box-shadow: 0 8px 25px rgba(183, 75, 75, 0.6);
-            background: linear-gradient(45deg, #8a2be2, #b74b4b);
+        }
+
+        .channel-button {
+            background: linear-gradient(45deg, #00c9ff, #92fe9d);
+            border: 2px solid #00c9ff;
+        }
+
+        .channel-button:hover {
+            background: linear-gradient(45deg, #92fe9d, #00c9ff);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 201, 255, 0.6);
         }
 
         section {
             min-height: 100vh;
             padding: 10rem 9% 5rem;
+            position: relative;
+            z-index: 2;
         }
 
         .home {
@@ -110,7 +219,6 @@
             justify-content: center;
             align-items: center;
             gap: 8rem;
-            background: transparent;
         }
 
         .home .home-content h1 {
@@ -118,17 +226,20 @@
             font-weight: 700;
             line-height: 1.3;
             margin-bottom: 2rem;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
 
         span {
-            color: #b74b4b;
+            color: var(--primary);
+            text-shadow: 0 0 10px rgba(183, 75, 75, 0.7);
         }
 
         .home-content h3 {
             font-size: 3rem;
             margin-bottom: 2rem;
             font-weight: 700;
-            color: #8a2be2;
+            color: var(--secondary);
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
         }
 
         .home-content p {
@@ -136,14 +247,31 @@
             margin-bottom: 3rem;
             line-height: 1.8;
             max-width: 600px;
-            color: #b8b8b8;
+            color: var(--light);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
 
         .home-img {
             border-radius: 50%;
-            border: 5px solid #b74b4b;
+            border: 5px solid var(--primary);
             box-shadow: 0 0 30px rgba(183, 75, 75, 0.6);
             transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        .home-img::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, var(--primary), transparent, var(--secondary));
+            transform: rotate(0deg);
+            animation: rotate 4s linear infinite;
+            z-index: -1;
         }
 
         .home-img:hover {
@@ -157,6 +285,14 @@
             cursor: pointer;
             transition: 0.2s linear;
             display: block;
+            background: var(--dark);
+            padding: 0.5rem;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.5rem;
+            margin: 2rem 0 3rem;
         }
 
         .social-icons a {
@@ -166,19 +302,18 @@
             width: 5rem;
             height: 5rem;
             background-color: transparent;
-            border: 0.2rem solid #b74b4b;
+            border: 0.2rem solid var(--primary);
             font-size: 2.5rem;
             border-radius: 50%;
-            margin: 3rem 1.5rem 3rem 0;
             transition: 0.3s ease;
-            color: #b74b4b;
+            color: var(--primary);
         }
 
         .social-icons a:hover {
             color: black;
             transform: scale(1.3) translateY(-5px);
-            background-color: #b74b4b;
-            box-shadow: 0 0 25px #b74b4b;
+            background-color: var(--primary);
+            box-shadow: 0 0 25px var(--primary);
         }
 
         .typing-text {
@@ -187,7 +322,8 @@
             min-width: 280px;
             height: 4.5rem;
             margin-bottom: 3rem;
-            color: #8a2be2;
+            color: var(--secondary);
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
 
         .typing-text span {
@@ -196,7 +332,7 @@
 
         .typing-text span::before {
             content: "Developer";
-            color: #b74b4b;
+            color: var(--primary);
             animation: words 20s infinite;
         }
 
@@ -206,14 +342,20 @@
             position: absolute;
             width: calc(100% + 8px);
             height: 100%;
-            border-left: 3px solid #b74b4b;
+            border-left: 3px solid var(--primary);
             right: -8px;
             animation: cursor 0.6s infinite;
         }
 
+        @keyframes rotate {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         @keyframes cursor {
             to {
-                border-left: 3px solid #8a2be2;
+                border-left: 3px solid var(--secondary);
             }
         }
 
@@ -235,6 +377,85 @@
             }
         }
 
+        .section-title {
+            font-size: 3.5rem;
+            text-align: center;
+            margin-bottom: 5rem;
+            color: var(--primary);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            padding-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), var(--secondary), var(--primary), transparent);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .service-card {
+            background: rgba(30, 30, 46, 0.8);
+            border-radius: 15px;
+            padding: 3rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(138, 43, 226, 0.3);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(138, 43, 226, 0.4);
+        }
+
+        .service-icon {
+            font-size: 4.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+            display: inline-block;
+            text-shadow: 0 0 10px rgba(183, 75, 75, 0.5);
+        }
+
+        .service-card h3 {
+            font-size: 2.2rem;
+            color: var(--light);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-card p {
+            font-size: 1.5rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
         .bots-section {
             background: rgba(10, 10, 20, 0.8);
             border-radius: 20px;
@@ -242,13 +463,14 @@
             margin-top: 5rem;
             border: 1px solid rgba(183, 75, 75, 0.3);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
         }
 
         .bots-section h2 {
             font-size: 3rem;
             text-align: center;
             margin-bottom: 3rem;
-            color: #b74b4b;
+            color: var(--primary);
             text-shadow: 0 0 10px rgba(183, 75, 75, 0.5);
         }
 
@@ -259,36 +481,36 @@
         }
 
         .bot-card {
-            background: rgba(30, 30, 46, 0.7);
+            background: var(--card-bg);
             border-radius: 15px;
             padding: 2rem;
             text-align: center;
             transition: transform 0.3s ease;
             border: 1px solid rgba(138, 43, 226, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         .bot-card:hover {
             transform: translateY(-10px);
-            background: rgba(40, 40, 56, 0.9);
             box-shadow: 0 10px 25px rgba(138, 43, 226, 0.3);
         }
 
         .bot-card h3 {
             font-size: 1.8rem;
-            color: #8a2be2;
+            color: var(--secondary);
             margin-bottom: 1.5rem;
         }
 
         .bot-card p {
             font-size: 1.4rem;
-            color: #b8b8b8;
+            color: var(--gray);
             margin-bottom: 1.5rem;
         }
 
         .bot-link {
             display: inline-block;
             padding: 1rem 2rem;
-            background: linear-gradient(45deg, #8a2be2, #b74b4b);
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
             border-radius: 30px;
             color: white;
             font-size: 1.3rem;
@@ -296,30 +518,40 @@
         }
 
         .bot-link:hover {
-            background: linear-gradient(45deg, #b74b4b, #8a2be2);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
             transform: scale(1.05);
         }
 
-        .section-title {
-            font-size: 3.5rem;
+        .contact-content {
             text-align: center;
-            margin-bottom: 5rem;
-            color: #b74b4b;
-            position: relative;
-            display: inline-block;
-            left: 50%;
-            transform: translateX(-50%);
-            padding-bottom: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 25%;
-            width: 50%;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, #b74b4b, #8a2be2, #b74b4b, transparent);
+        .contact-content p {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            color: var(--gray);
+        }
+
+        .contact-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        footer {
+            padding: 3rem 9%;
+            text-align: center;
+            background: rgba(10, 10, 20, 0.8);
+            border-top: 1px solid rgba(183, 75, 75, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            font-size: 1.6rem;
+            color: var(--gray);
         }
 
         @media (max-width: 1200px) {
@@ -331,6 +563,10 @@
         @media (max-width: 991px) {
             section {
                 padding: 10rem 4% 5rem;
+            }
+            
+            header {
+                padding: 1.5rem 4%;
             }
         }
 
@@ -356,6 +592,25 @@
             .home-content h3 {
                 font-size: 2.5rem;
             }
+            
+            .service-card {
+                padding: 2.5rem;
+            }
+            
+            .button-group {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
         }
 
         @media (max-width: 520px) {
@@ -375,33 +630,55 @@
             .bot-list {
                 grid-template-columns: 1fr;
             }
+            
+            nav a {
+                font-size: 1.4rem;
+                margin-left: 1.5rem;
+            }
+            
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .custom-button {
+                min-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Animated Background Elements -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+    
     <header>
-        <a href="#" class="logo">Kɪʀɪᴛᴏᵈᵉᵛ</a>
+        <a href="#" class="logo"><i class="fas fa-robot"></i>Kirito</a>
         <nav>
             <a href="#" class="active">Home</a>
+            <a href="#services">Services</a>
             <a href="#bots">Bots</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
             <a href="#contact">Contact</a>
         </nav>
     </header>
     
     <section class="home">
         <div class="home-img">
-            <img src="https://i.pinimg.com/564x/63/8b/3d/638b3d860aecc2a9a8e3d0e8b0a8c0b9.jpg" alt="Kiritodev">
+            <img src="https://i.pinimg.com/564x/63/8b/3d/638b3d860aecc2a9a8e3d0e8b0a8c0b9.jpg" alt="Kirito">
         </div>
         <div class="home-content">
-            <h1>Hello, I'm <span>Kɪʀɪᴛᴏᵈᵉᵛ</span></h1>
+            <h1>Hello, I'm <span>Kirito</span></h1>
             <h3 class="typing-text">I'm a <span></span></h3>
-            <p>Cyber enthusiast • Developer • Anime Lover • Creating innovative solutions in the digital realm. Passionate about technology and pushing boundaries in the digital space.</p>
+            <p>Cyber Solutions Specialist • Telegram Bot Developer • Creating powerful tools for the digital realm. Passionate about technology and innovative solutions.</p>
             
-            <a href="https://t.me/Kirito_Mailer_Bot" class="bot-button">
-                <i class="fas fa-robot"></i> Mass Mailer Bot
-            </a>
+            <div class="button-group">
+                <a href="https://t.me/Whosekirito" class="custom-button contact-button">
+                    <i class="fas fa-user"></i> Contact Me
+                </a>
+                <a href="https://t.me/Kirito_Bots" class="custom-button channel-button">
+                    <i class="fab fa-telegram"></i> Telegram Channel
+                </a>
+            </div>
             
             <div class="social-icons">
                 <a href="https://t.me/Whosekirito"><i class="fab fa-telegram"></i></a>
@@ -410,96 +687,106 @@
         </div>
     </section>
     
+    <section id="services">
+        <h2 class="section-title">💼 My Services</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🚫</div>
+                <h3>Telegram Account Banning</h3>
+                <p>Professional handling of mass reporting to restrict or ban targeted Telegram accounts effectively.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📛</div>
+                <h3>Telegram Channel Banning</h3>
+                <p>Specialized reporting strategies to help disable or remove Telegram channels violating policies.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🔒</div>
+                <h3>Telegram Group Banning</h3>
+                <p>Group-level targeting and takedown services to remove harmful or unauthorized Telegram groups.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>Custom Telegram Bot Development</h3>
+                <p>Fully personalized Telegram bots designed for your specific needs, including automation, moderation, or engagement tools.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">💰</div>
+                <h3>Paid Telegram Bot Creation</h3>
+                <p>Fast and reliable development of premium Telegram bots with guaranteed quality and support.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📦</div>
+                <h3>Paid Bot Source Code</h3>
+                <p>Access to clean, well-documented source code for high-performance Telegram bots—ready for deployment or customization.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">⚙️</div>
+                <h3>Custom Script & Bot Solutions</h3>
+                <p>Tailor-made automation scripts or bots (outside Telegram as well) built for your project or business use case.</p>
+            </div>
+        </div>
+    </section>
+    
     <section id="bots">
-        <h2 class="section-title">Our Bot Army</h2>
-        <div class="bot-list">
-            <div class="bot-card">
-                <h3>˹ Rᴏxʏ ©️ᴏᴘʏʀɪɢʜᴛ Bʏᴘᴀssᴇʀ ˼ ⚡️</h3>
-                <p>Advanced copyright bypass solution</p>
-                <a href="https://t.me/Copyright_bypasser_Bot" class="bot-link">Use Bot</a>
-            </div>
-            
-            <div class="bot-card">
-                <h3>˹ Kirito Mass Mailer ˼ ⚡️</h3>
-                <p>Mass messaging solution for Telegram</p>
-                <a href="https://t.me/Kirito_Mailer_Bot" class="bot-link">Use Bot</a>
-            </div>
-            
-            <div class="bot-card">
-                <h3>˹ Auto Request Approve Bot ˼ ❤️</h3>
-                <p>Automated approval system</p>
-                <a href="https://t.me/Kafka_Approve_Bot" class="bot-link">Use Bot</a>
-            </div>
-            
-            <div class="bot-card">
-                <h3>˹ Tᴇʟᴇɢʀᴀᴘʜ ʙᴏᴛ ˼ 👀</h3>
-                <p>Media upload automation</p>
-                <a href="https://t.me/kTelegraph_Upload_Bot" class="bot-link">Use Bot</a>
-            </div>
-        </div>
-    </section>
-    
-    <section id="about">
-        <h2 class="section-title">About Me</h2>
-        <div class="about-content">
-            <p style="font-size: 1.6rem; line-height: 1.8; max-width: 800px; margin: 0 auto; text-align: center;">
-                I'm Kiritodev - a passionate developer and cybersecurity enthusiast with a love for anime and innovative technology. 
-                With years of experience in creating Telegram bots and digital solutions, I specialize in developing tools that 
-                enhance productivity and automate complex processes. When I'm not coding, you can find me exploring new anime series 
-                or contributing to open-source projects. My mission is to create powerful, efficient tools that solve real-world problems 
-                with cutting-edge technology.
-            </p>
-        </div>
-    </section>
-    
-    <section id="skills">
-        <h2 class="section-title">My Skills</h2>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto;">
-            <div style="background: rgba(30, 30, 46, 0.7); padding: 2rem; border-radius: 15px; text-align: center;">
-                <h3 style="color: #8a2be2; font-size: 1.8rem; margin-bottom: 1.5rem;">Development</h3>
-                <p style="font-size: 1.4rem; color: #b8b8b8;">Python, JavaScript, Node.js, API Integration</p>
-            </div>
-            <div style="background: rgba(30, 30, 46, 0.7); padding: 2rem; border-radius: 15px; text-align: center;">
-                <h3 style="color: #8a2be2; font-size: 1.8rem; margin-bottom: 1.5rem;">Cyber Security</h3>
-                <p style="font-size: 1.4rem; color: #b8b8b8;">Pentesting, System Hardening, Security Protocols</p>
-            </div>
-            <div style="background: rgba(30, 30, 46, 0.7); padding: 2rem; border-radius: 15px; text-align: center;">
-                <h3 style="color: #8a2be2; font-size: 1.8rem; margin-bottom: 1.5rem;">Automation</h3>
-                <p style="font-size: 1.4rem; color: #b8b8b8;">Bot Development, Scripting, Task Automation</p>
+        <h2 class="section-title">🤖 Bot Army</h2>
+        <div class="bots-section">
+            <div class="bot-list">
+                <div class="bot-card">
+                    <h3>˹ Rᴏxʏ ©️ᴏᴘʏʀɪɢʜᴛ Bʏᴘᴀssᴇʀ ˼ ⚡️</h3>
+                    <p>Advanced copyright bypass solution</p>
+                    <a href="https://t.me/Copyright_bypasser_Bot" class="bot-link">Use Bot</a>
+                </div>
+                
+                <div class="bot-card">
+                    <h3>˹ Kirito Mass Mailer ˼ ⚡️</h3>
+                    <p>Mass messaging solution for Telegram</p>
+                    <a href="https://t.me/Kirito_Mailer_Bot" class="bot-link">Use Bot</a>
+                </div>
+                
+                <div class="bot-card">
+                    <h3>˹ Auto Request Approve Bot ˼ ❤️</h3>
+                    <p>Automated approval system</p>
+                    <a href="https://t.me/Kafka_Approve_Bot" class="bot-link">Use Bot</a>
+                </div>
+                
+                <div class="bot-card">
+                    <h3>˹ Tᴇʟᴇɢʀᴀᴘʜ ʙᴏᴛ ˼ 👀</h3>
+                    <p>Media upload automation</p>
+                    <a href="https://t.me/kTelegraph_Upload_Bot" class="bot-link">Use Bot</a>
+                </div>
             </div>
         </div>
     </section>
     
     <section id="contact">
-        <h2 class="section-title">Contact Me</h2>
-        <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-            <p style="font-size: 1.8rem; margin-bottom: 3rem;">
-                For collaborations, projects, or just to say hello!
-            </p>
-            <div style="display: flex; justify-content: center; gap: 2rem;">
-                <a href="https://t.me/Whosekirito" class="bot-button" style="padding: 1.2rem 2.5rem; font-size: 1.4rem;">
+        <h2 class="section-title">Get In Touch</h2>
+        <div class="contact-content">
+            <p>For collaborations, custom solutions, or any inquiries, feel free to reach out!</p>
+            <div class="contact-buttons">
+                <a href="https://t.me/Whosekirito" class="custom-button contact-button">
                     <i class="fab fa-telegram"></i> Telegram
                 </a>
-                <a href="https://www.instagram.com/whosekirito" class="bot-button" style="padding: 1.2rem 2.5rem; font-size: 1.4rem;">
+                <a href="https://www.instagram.com/whosekirito" class="custom-button channel-button">
                     <i class="fab fa-instagram"></i> Instagram
                 </a>
             </div>
         </div>
     </section>
     
+    <footer>
+        <p>© 2024 Kirito | Telegram Solutions Specialist</p>
+    </footer>
+    
     <script>
-        // Simple smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Update active navigation link on scroll
-        window.addEventListener('scroll', function() {
+        // Update active nav link on scroll
+        window.addEventListener('scroll', () => {
             const sections = document.querySelectorAll('section');
             const navLinks = document.querySelectorAll('nav a');
             
@@ -521,6 +808,90 @@
                 }
             });
         });
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Create floating particles
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.body;
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                createParticle();
+            }
+            
+            function createParticle() {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random position
+                const posX = Math.random() * 100;
+                const posY = Math.random() * 100;
+                
+                // Random size
+                const size = Math.random() * 5 + 2;
+                
+                // Random animation duration
+                const duration = Math.random() * 10 + 5;
+                
+                // Random color
+                const colors = ['#b74b4b', '#8a2be2', '#00c9ff', '#92fe9d'];
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
+                particle.style.cssText = `
+                    position: fixed;
+                    top: ${posY}%;
+                    left: ${posX}%;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: ${color};
+                    border-radius: 50%;
+                    pointer-events: none;
+                    box-shadow: 0 0 10px ${color}, 0 0 20px ${color};
+                    opacity: ${Math.random() * 0.6 + 0.2};
+                    z-index: -1;
+                    animation: floatParticle ${duration}s infinite ease-in-out;
+                    animation-delay: ${Math.random() * 5}s;
+                `;
+                
+                container.appendChild(particle);
+            }
+            
+            // Add keyframes for particle animation
+            const styleSheet = document.styleSheets[0];
+            styleSheet.insertRule(`
+                @keyframes floatParticle {
+                    0% {
+                        transform: translate(0, 0) rotate(0deg);
+                        opacity: ${Math.random() * 0.6 + 0.2};
+                    }
+                    50% {
+                        transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) rotate(180deg);
+                        opacity: ${Math.random() * 0.8 + 0.1};
+                    }
+                    100% {
+                        transform: translate(0, 0) rotate(360deg);
+                        opacity: ${Math.random() * 0.6 + 0.2};
+                    }
+                }
+            `, styleSheet.cssRules.length);
+        });
     </script>
 </body>
-</html>
+                               </html>
